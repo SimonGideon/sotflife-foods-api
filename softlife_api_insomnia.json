@@ -121,6 +121,421 @@
                     "value": "application/json"
                 }
             ]
+        },
+        {
+            "_id": "req_filter_menu_items",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Filter Menu Items (Advanced)",
+            "description": "At least one filter param is required: name, menu_category_id, min_price, max_price. Example: ?name=burger&min_price=100&max_price=500&sort_by=price&sort_dir=desc. Endpoint will not return all items if no filter is provided.",
+            "method": "GET",
+            "url": "{{ base_url }}/menu_items/filter_menu_items?name=burger&min_price=100&max_price=500&sort_by=price&sort_dir=desc",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_menu_items_index",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "List All Menu Items",
+            "description": "Get all menu items (auth required)",
+            "method": "GET",
+            "url": "{{ base_url }}/menu_items",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_menu_categories",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "List All Menu Categories",
+            "description": "Get all menu categories (public)",
+            "method": "GET",
+            "url": "{{ base_url }}/menu_items/menu_categories",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_menu_items_by_category",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Menu Items by Category",
+            "description": "Get menu items for a specific category. Example: ?id=1",
+            "method": "GET",
+            "url": "{{ base_url }}/menu_items/menu_items_by_category?id=1",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_menu_item_by_id",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Menu Item by ID",
+            "description": "Get a menu item by its ID. Example: ?id=1",
+            "method": "GET",
+            "url": "{{ base_url }}/menu_items/menu_item_by_id?id=1",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_create_menu_item",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Create Menu Item (Admin/Superadmin)",
+            "description": "Create a new menu item. Requires admin or superadmin JWT.",
+            "method": "POST",
+            "url": "{{ base_url }}/menu_items",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"menu_item\": {\n    \"name\": \"New Item\",\n    \"price\": 500,\n    \"image\": \"https://example.com/image.jpg\",\n    \"description\": \"Tasty food\",\n    \"menu_category_id\": 1\n  }\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_delete_menu_item",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Delete Menu Item (Admin/Superadmin)",
+            "description": "Delete a menu item by ID. Requires admin or superadmin JWT. Example: /menu_items/1",
+            "method": "DELETE",
+            "url": "{{ base_url }}/menu_items/1",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_create_menu_category",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Create Menu Category (Admin/Superadmin)",
+            "description": "Create a new menu category. Requires admin or superadmin JWT.",
+            "method": "POST",
+            "url": "{{ base_url }}/menu_items/create_menu_category",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"menu_category\": {\n    \"name\": \"New Category\"\n  }\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_update_menu_category",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Update Menu Category (Admin/Superadmin)",
+            "description": "Update a menu category by ID. Requires admin or superadmin JWT. Example: ?id=1",
+            "method": "PUT",
+            "url": "{{ base_url }}/menu_items/update_menu_category?id=1",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"menu_category\": {\n    \"name\": \"Updated Category\"\n  }\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_delete_menu_category",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Delete Menu Category (Admin/Superadmin)",
+            "description": "Delete a menu category by ID. Requires admin or superadmin JWT. Example: ?id=1",
+            "method": "DELETE",
+            "url": "{{ base_url }}/menu_items/delete_menu_category?id=1",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_search_menu_items",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Search Menu Items",
+            "description": "Search menu items by name or category. Example: ?search=burger&menu_category_id=1",
+            "method": "GET",
+            "url": "{{ base_url }}/menu_items/search_menu_items?search=burger&menu_category_id=1",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_create_order",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Create Order (Client)",
+            "description": "Place a new order as a client. Include order_items as nested attributes.",
+            "method": "POST",
+            "url": "{{ base_url }}/orders",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"order\": {\n    \"total_price\": 1500,\n    \"delivery_address\": \"123 Main St\",\n    \"delivery_lat\": -1.28,\n    \"delivery_lng\": 36.82,\n    \"rider_id\": 1,\n    \"order_items_attributes\": [\n      {\n        \"menu_item_id\": 1,\n        \"quantity\": 2,\n        \"price\": 500\n      },\n      {\n        \"menu_item_id\": 2,\n        \"quantity\": 1,\n        \"price\": 500\n      }\n    ]\n  }\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_orders_index",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "List Orders (Role-based)",
+            "description": "Clients see their own orders, admins see all, riders see assigned orders.",
+            "method": "GET",
+            "url": "{{ base_url }}/orders",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_order_show",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Show Order (Role-based)",
+            "description": "View a specific order by ID. Only allowed if you have permission.",
+            "method": "GET",
+            "url": "{{ base_url }}/orders/1",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_update_order_status",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Update Order Status (Admin/Rider)",
+            "description": "Update the status of an order. Only admin or assigned rider can do this. Example: /orders/1/update_status",
+            "method": "PATCH",
+            "url": "{{ base_url }}/orders/1/update_status",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"status\": \"dispatched\"\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_assign_rider",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Assign Rider (Admin Only)",
+            "description": "Assign a rider to an order. Only admin can do this. Example: /orders/1/assign_rider",
+            "method": "PATCH",
+            "url": "{{ base_url }}/orders/1/assign_rider",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"rider_id\": 2\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_create_payment",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Create Payment (Admin/Order Owner)",
+            "description": "Create a payment for an order. Requires admin or order owner JWT.",
+            "method": "POST",
+            "url": "{{ base_url }}/payments",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"payment\": {\n    \"order_id\": 1,\n    \"amount\": 1500,\n    \"payment_method\": \"mpesa\",\n    \"status\": \"pending\"\n  }\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_show_payment",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Show Payment (Role-based)",
+            "description": "View a payment by ID. Admin, order owner, or assigned rider can view.",
+            "method": "GET",
+            "url": "{{ base_url }}/payments/1",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_update_payment",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Update Payment (Admin/Order Owner)",
+            "description": "Update a payment by ID. Requires admin or order owner JWT.",
+            "method": "PATCH",
+            "url": "{{ base_url }}/payments/1",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"payment\": {\n    \"status\": \"paid\"\n  }\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_show_shop_detail",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Show Shop Detail (Public)",
+            "description": "View shop details by ID.",
+            "method": "GET",
+            "url": "{{ base_url }}/shop_details/1",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_update_shop_detail",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Update Shop Detail (Admin Only)",
+            "description": "Update shop details by ID. Requires admin JWT.",
+            "method": "PATCH",
+            "url": "{{ base_url }}/shop_details/1",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n  \"shop_detail\": {\n    \"name\": \"New Shop Name\",\n    \"address\": \"New Address\",\n    \"latitude\": -1.28,\n    \"longitude\": 36.82,\n    \"delivery_radius_km\": 5.0,\n    \"contact_phone\": \"0712345678\",\n    \"open_time\": \"08:00\",\n    \"close_time\": \"22:00\"\n  }\n}"
+            },
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
         }
     ]
 }

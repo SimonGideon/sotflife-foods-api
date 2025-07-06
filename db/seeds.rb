@@ -8,24 +8,13 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-# Seed 3 admins
-3.times do |i|
-  User.create!(
-    name: "Admin #{i+1}",
-    phone: "07000000#{i+1}",
-    email: "admin#{i+1}@example.com",
-    password: 'password123',
-    password_confirmation: 'password123',
-    role: :admin
-  )
-end
 
 # Seed 20 clients
 20.times do |i|
   User.create!(
-    name: "Client #{i+1}",
+    name: "Client #{i+5}",
     phone: "07110000#{i+1}",
-    email: "client#{i+1}@example.com",
+    email: "client#{i+5}@example.com",
     password: 'password123',
     password_confirmation: 'password123',
     role: :client
@@ -36,9 +25,9 @@ end
 transport_modes = %w[foot bicycle motorbike]
 7.times do |i|
   user = User.create!(
-    name: "Rider #{i+1}",
+    name: "Rider #{i+5}",
     phone: "07220000#{i+1}",
-    email: "rider#{i+1}@example.com",
+    email: "rider#{i+5}@example.com",
     password: 'password123',
     password_confirmation: 'password123',
     role: :rider
@@ -50,4 +39,18 @@ transport_modes = %w[foot bicycle motorbike]
     current_lat: -1.28 + rand * 0.1,
     current_lng: 36.8 + rand * 0.1
   )
+end
+
+# Seed 10 menu categories, each with 10 menu items
+10.times do |i|
+  category = MenuCategory.create!(name: "Category #{i+1}")
+  10.times do |j|
+    MenuItem.create!(
+      name: "Item #{j+1} in #{category.name}",
+      price: rand(100..1000),
+      image: "https://example.com/image#{i+1}_#{j+1}.jpg",
+      description: "Delicious item #{j+1} in #{category.name}",
+      menu_category: category
+    )
+  end
 end

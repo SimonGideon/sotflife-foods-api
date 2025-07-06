@@ -1,0 +1,2 @@
+class ShopDetail < ApplicationRecord
+end

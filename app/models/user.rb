@@ -9,4 +9,5 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :phone, presence: true
   has_one :rider_profile
+  has_many :orders
 end

@@ -11,6 +11,26 @@ Rails.application.routes.draw do
           put 'update_profile', to: 'users#update_profile'
         end
       end
+      resources :menu_items, only: [:index, :create, :destroy] do
+        collection do
+          get 'menu_categories'
+          get 'menu_items_by_category'
+          get 'menu_item_by_id'
+          post 'create_menu_category'
+          put 'update_menu_category'
+          delete 'delete_menu_category'
+          get 'search_menu_items'
+          get 'filter_menu_items'
+        end
+      end
+      resources :orders, only: [:create, :index, :show] do
+        member do
+          patch 'update_status'
+          patch 'assign_rider'
+        end
+      end
+      resources :payments, only: [:create, :show, :update]
+      resources :shop_details, only: [:show, :update]
     end
   end
   # devise_for :users

@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
 
-  # supwer admin deleting profiles
+  # super admin deleting profiles
   def delete_profile
     user = User.find(params[:id])
     user.destroy
