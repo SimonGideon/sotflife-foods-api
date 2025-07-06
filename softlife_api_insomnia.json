@@ -24,6 +24,7 @@
             "parentId": "wrk_1",
             "_type": "request",
             "name": "User Register",
+            "description": "Register a new user. Use role: 'admin', 'client', or 'rider'.",
             "method": "POST",
             "url": "{{ base_url }}/register",
             "body": {
@@ -43,6 +44,7 @@
             "parentId": "wrk_1",
             "_type": "request",
             "name": "User Login",
+            "description": "Login as any user. Use admin credentials for admin-only endpoints.",
             "method": "POST",
             "url": "{{ base_url }}/login",
             "body": {
@@ -68,8 +70,47 @@
             "parentId": "wrk_1",
             "_type": "request",
             "name": "User Logout",
+            "description": "Logout the current user (JWT required).",
             "method": "DELETE",
             "url": "{{ base_url }}/logout",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_users_index",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Get All Users (Admin Only)",
+            "description": "Admin-only endpoint. Requires admin JWT token.",
+            "method": "GET",
+            "url": "{{ base_url }}/users",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer {{ jwt_token }}"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ]
+        },
+        {
+            "_id": "req_users_search",
+            "parentId": "wrk_1",
+            "_type": "request",
+            "name": "Search Users (Admin Only)",
+            "description": "Admin-only endpoint. Requires admin JWT token. For future superadmin endpoints, use a superadmin JWT.",
+            "method": "GET",
+            "url": "{{ base_url }}/users/search?q=Test",
             "headers": [
                 {
                     "name": "Authorization",

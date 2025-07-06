@@ -1,4 +1,29 @@
 class Api::V1::UsersController < ApplicationController
+  include Devise::Controllers::Helpers
+  before_action :authenticate_user!, only: [:index, :search, :logout]
+  before_action :require_admin, only: [:index, :search]
+
+  # GET /api/v1/users
+  def index
+    users = User.all
+    render json: users.as_json(only: [:id, :name, :email, :phone, :role])
+  end
+
+  # GET /api/v1/users/search?q=term
+  def search
+    q = params[:q].to_s.strip
+    users = User.where('name ILIKE :q OR email ILIKE :q OR phone ILIKE :q', q: "%#{q}%")
+    render json: users.as_json(only: [:id, :name, :email, :phone, :role])
+  end
+
+
+  # supwer admin deleting profiles
+  def delete_profile
+    user = User.find(params[:id])
+    user.destroy
+    render json: { message: 'Profile deleted successfully.' }, status: :ok
+  end
+
   # POST /api/v1/register
   def register
     user = User.new(user_params)
@@ -7,6 +32,13 @@ class Api::V1::UsersController < ApplicationController
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
+  end
+
+  # updates user profile
+  def update_profile
+    user = User.find(params[:id])
+    user.update(user_params)
+    render json: { message: 'Profile updated successfully.' }, status: :ok
   end
 
   # POST /api/v1/login
@@ -35,4 +67,5 @@ class Api::V1::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :phone, :email, :password, :password_confirmation, :role)
   end
+
 end

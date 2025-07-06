@@ -4,9 +4,16 @@ Rails.application.routes.draw do
       post 'register', to: 'users#register'
       post 'login', to: 'users#login'
       delete 'logout', to: 'users#logout'
+      resources :users, only: [:index] do
+        collection do
+          get 'search'
+          delete 'delete_profile', to: 'users#delete_profile'
+          put 'update_profile', to: 'users#update_profile'
+        end
+      end
     end
   end
-  devise_for :users
+  # devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -15,4 +22,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # Catch-all for unmatched routes (must be last)
+  match '*unmatched', to: 'application#route_not_found', via: :all
 end
