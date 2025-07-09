@@ -59,7 +59,3 @@
 - The login request will automatically set the JWT token for use in subsequent requests.
 
 ---
-
-**Remember:**
-- Never commit your real JWT secret to version control.
-- Always use strong, random secrets in production.
